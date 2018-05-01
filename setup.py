@@ -31,6 +31,10 @@ setup(name='pyCompare',
 		.. image:: https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg
 		   :target: https://codecov.io/gh/jaketmp/pyCompare
 		   :alt: Test coverage
+
+        .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238916.svg
+           :target: https://doi.org/10.5281/zenodo.1238916
+           :alt: Zenodo DOI
 		""",
 		documentation='https://github.com/jaketmp/pyCompare',
 		include_package_data=True,
