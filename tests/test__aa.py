@@ -22,5 +22,5 @@ class test__AA__decoy(unittest.TestCase):
 
 	@unittest.expectedFailure
 	def test__AA(self):
-		dilutionMap = pandas.DataFrame([[1,2,3],[4,5,6]])
+		csvFile = pandas.read_csv('referenceCIs.csv')
 		self.assertWarnsRegex(UserWarning, 'You were warned', raiseWarning)
