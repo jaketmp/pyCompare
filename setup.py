@@ -8,9 +8,9 @@ setup(name='pyCompare',
 	license='MIT',
 	packages=find_packages(),
 	install_requires=[
-		'numpy>=1.11.0',
-		'scipy>=1.0.0',
-		'matplotlib>=1.5.1',
+		'numpy>=1.14.2',
+		'scipy>=1.0.1',
+		'matplotlib>=2.2.2',
 	],
 	classifiers = [
 		"Programming Language :: Python",
