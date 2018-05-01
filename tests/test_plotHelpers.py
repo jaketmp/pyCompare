@@ -4,10 +4,6 @@ import sys
 import unittest
 import tempfile
 import os
-import io
-import copy
-import warnings
-
 
 sys.path.append("..")
 import pyCompare

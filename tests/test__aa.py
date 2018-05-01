@@ -1,7 +1,6 @@
 import pandas # pandas must be imported to intercept the subsequent failure.
 import unittest
 import warnings
-import os
 import matplotlib
 
 
@@ -23,5 +22,5 @@ class test__AA__decoy(unittest.TestCase):
 
 	@unittest.expectedFailure
 	def test__AA(self):
-		dilutionMap = pandas.read_csv(os.path.join('..', 'nPYc', 'StudyDesigns', 'DilutionSeries.csv'))
+		dilutionMap = pandas.DataFrame([[1,2,3],[4,5,6]])
 		self.assertWarnsRegex(UserWarning, 'You were warned', raiseWarning)

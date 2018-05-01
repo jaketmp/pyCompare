@@ -4,10 +4,6 @@ import sys
 import unittest
 import tempfile
 import os
-import io
-import copy
-import warnings
-
 
 sys.path.append("..")
 import pyCompare
@@ -54,6 +50,16 @@ class test_plotting(unittest.TestCase):
 
 				self.assertTrue(os.path.exists(outputPath))
 
+			with self.subTest(msg='title'):
+				outputPath = os.path.join(tmpdirname, 'plot_detrend')
+				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
+										  numpy.random.rand(noSamp)*50+100,
+										  confidenceInterval=None,
+										  title='comparison of x and y',
+										  savePath=outputPath)
+
+				self.assertTrue(os.path.exists(outputPath))
+
 
 	def test_blandAtlman_raises(self):
 
@@ -63,3 +69,5 @@ class test_plotting(unittest.TestCase):
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, limitOfAgreement=-2)
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, confidenceInterval=-2)
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, confidenceInterval=100)
+		self.assertRaises(NotImplementedError, pyCompare.blandAltman, values, values, detrend='Unknown method')
+		self.assertRaises(NotImplementedError, pyCompare.blandAltman, values, values, confidenceIntervalMethod='Unknown method')
