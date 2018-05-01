@@ -12,9 +12,6 @@ setup(name='pyCompare',
 		'scipy>=1.0.0',
 		'matplotlib>=1.5.1',
 	],
-	tests_require = [
-		'pandas',
-		],
 	classifiers = [
 		"Programming Language :: Python",
 		"Programming Language :: Python :: 3.6",
