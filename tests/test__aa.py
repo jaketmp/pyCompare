@@ -2,7 +2,7 @@ import pandas # pandas must be imported to intercept the subsequent failure.
 import unittest
 import warnings
 import matplotlib
-
+import os
 
 ##
 # Handle undefined DISPLAY on Travis
