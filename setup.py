@@ -9,7 +9,7 @@ setup(name='pyCompare',
 	packages=find_packages(),
 	install_requires=[
 		'numpy>=1.11.0',
-		'scipy>=0.17.1',
+		'scipy>=1.0.0',
 		'matplotlib>=1.5.1',
 	],
 	classifiers = [
