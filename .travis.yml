@@ -29,6 +29,7 @@ script:
   - travis_wait 30 coverage run -m unittest discover
 
 after_success:
+  - coverage combine
   - codecov
   - cd ../
 
