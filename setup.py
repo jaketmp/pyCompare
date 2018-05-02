@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pyCompare',
-	version='1.0.1',
+	version='1.1.0',
 	description='Bland-Altman plots for Python',
 	url='https://github.com/jaketmp/pyCompare',
 	author='Jake TM Pearce',
@@ -22,8 +22,6 @@ setup(name='pyCompare',
 		"Topic :: Scientific/Engineering :: Visualization",
 		],
 	long_description = """\
-		A Python module for generating `Bland-Altman <https://en.wikipedia.org/wiki/Bland–Altman_plot>`_ plots to compare two sets of measurements.
-
 		.. image:: https://travis-ci.org/jaketmp/pyCompare.svg?branch=master
 		   :target: https://travis-ci.org/jaketmp/pyCompare
 		   :alt: Travis CI build status
@@ -32,11 +30,15 @@ setup(name='pyCompare',
 		   :target: https://codecov.io/gh/jaketmp/pyCompare
 		   :alt: Test coverage
 
-        .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238916.svg
-           :target: https://doi.org/10.5281/zenodo.1238916
-           :alt: Zenodo DOI
+		.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238916.svg
+		   :target: https://doi.org/10.5281/zenodo.1238916
+		   :alt: Zenodo DOI
+
+		A Python module for generating `Bland-Altman <https://en.wikipedia.org/wiki/Bland–Altman_plot>`_ plots to compare two sets of measurements.
+
+		For documentation see the `project page <https://github.com/jaketmp/pyCompare>` on GitHub.
 		""",
-		documentation='https://github.com/jaketmp/pyCompare',
-		include_package_data=True,
-		zip_safe=True
+	documentation='https://github.com/jaketmp/pyCompare',
+	include_package_data=True,
+	zip_safe=True
 	)

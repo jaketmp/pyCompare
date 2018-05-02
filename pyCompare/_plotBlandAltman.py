@@ -4,6 +4,9 @@ import matplotlib.transforms as transforms
 import matplotlib.ticker as ticker
 from scipy import stats
 import warnings
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from itertools import repeat
+
 
 from ._rangeFrameLocator import rangeFrameLocator
 from ._carkeetCIest import carkeetCIest
@@ -69,7 +72,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 		n = len(diff)
 
 		confidenceInterval = confidenceInterval / 100.
-		
+
 		confidenceIntervalMean = stats.norm.interval(confidenceInterval, loc=md, scale=sd/numpy.sqrt(n))
 
 		ax.axhspan(confidenceIntervalMean[0],
@@ -77,8 +80,13 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 				   facecolor='#6495ED', alpha=0.2)
 
 		if confidenceIntervalMethod.lower() == 'exact paired':
-			coefInner = carkeetCIest(n, (1 - confidenceInterval) / 2., limitOfAgreement)
-			coefOuter = carkeetCIest(n, 1 - (1 - confidenceInterval) / 2., limitOfAgreement)
+
+			coeffs = []
+			with ProcessPoolExecutor(max_workers=2) as executor:
+				for result in executor.map(carkeetCIest, repeat(n), [(1 - confidenceInterval) / 2., 1 - (1 - confidenceInterval) / 2.], repeat(limitOfAgreement)):
+					coeffs.append(result)
+			coefInner = coeffs[0]
+			coefOuter = coeffs[1]
 
 			upperLoAhigh = md + (coefOuter * sd)
 			upperLoAlow = md + (coefInner * sd)
@@ -98,7 +106,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 			lowerLoAlow = (md - limitOfAgreement*sd) - loARange
 
 		else:
-			raise NotImplementedError("'%s' is not an implemented method of calculating confidance intervals")
+			raise NotImplementedError("'%s' is not an valid method of calculating confidance intervals")
 
 		ax.axhspan(upperLoAhigh,
 				   upperLoAlow,

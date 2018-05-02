@@ -70,4 +70,4 @@ class test_plotting(unittest.TestCase):
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, confidenceInterval=-2)
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, confidenceInterval=100)
 		self.assertRaises(NotImplementedError, pyCompare.blandAltman, values, values, detrend='Unknown method')
-		self.assertRaises(NotImplementedError, pyCompare.blandAltman, values, values, confidenceIntervalMethod='Unknown method')
+		self.assertRaises(NotImplementedError, pyCompare.blandAltman, values*2, values, confidenceIntervalMethod='Unknown method')

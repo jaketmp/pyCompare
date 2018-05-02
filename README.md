@@ -4,7 +4,7 @@
 
 A Python module for generating [Bland-Altman](https://en.wikipedia.org/wiki/Bland–Altman_plot) plots to compare two sets of measurements.
 
-<img src="docs/_static/bland_altman.png" style="max-width: 80%;" align="center" />
+<img src="docs/_static/bland_altman.png" style="max-width: 60%;" align="center" />
 
 ## Installation
 
