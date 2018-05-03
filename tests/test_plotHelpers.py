@@ -8,7 +8,7 @@ import os
 sys.path.append("..")
 import pyCompare
 
-class test_plotting_helpers(unittest.TestCase):
+class test_helpers(unittest.TestCase):
 
 	def test_rangeFrameLocator(self):
 

@@ -13,13 +13,9 @@ def rangeFrameLocator(tickLocs, axisRange):
 	newTicks = [axisRange[0]]
 
 	for tick in tickLocs:
-		if tick < axisRange[0]:
-			pass
-		elif (tick < (axisRange[0] + (cadance / 2.0))) & (tick < (axisRange[0] + cadance)):
+		if (tick < (axisRange[0] + (cadance / 2.0))) & (tick < (axisRange[0] + cadance)):
 			pass
 		elif (tick > (axisRange[1] - (cadance / 2.0))) & (tick > (axisRange[1] - cadance)):
-			pass
-		elif tick > axisRange[1]:
 			pass
 		else:
 			newTicks.append(tick)
