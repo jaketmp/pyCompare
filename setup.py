@@ -31,12 +31,12 @@ setup(name='pyCompare',
 		   :alt: Test coverage
 
 		.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238916.svg
-		   :target: https://doi.org/10.5281/zenodo.1238916
+		   :target: https://doi.org/10.5281/zenodo.1238915
 		   :alt: Zenodo DOI
 
 		A Python module for generating `Bland-Altman <https://en.wikipedia.org/wiki/Bland–Altman_plot>`_ plots to compare two sets of measurements.
 
-		For documentation see the `project page <https://github.com/jaketmp/pyCompare>` on GitHub.
+		For documentation see the `project page <https://github.com/jaketmp/pyCompare>`_ on GitHub.
 		""",
 	documentation='https://github.com/jaketmp/pyCompare',
 	include_package_data=True,
