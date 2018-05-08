@@ -12,7 +12,7 @@ from ._rangeFrameLocator import rangeFrameLocator
 from ._carkeetCIest import carkeetCIest
 
 
-def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='exact paired', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png'):
+def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png'):
 	"""
 	blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=None, **kwargs)
 

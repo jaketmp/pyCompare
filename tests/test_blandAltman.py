@@ -19,6 +19,7 @@ class test_plotting(unittest.TestCase):
 				outputPath = os.path.join(tmpdirname, 'plot')
 				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
 										  numpy.random.rand(noSamp)*50+100,
+										  confidenceIntervalMethod='exact paired',
 										  savePath=outputPath)
 
 				self.assertTrue(os.path.exists(outputPath))

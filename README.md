@@ -19,10 +19,14 @@ Installation with pip allows the usage of the uninstall command:
 
 ## Documentation
 
-
 ### blandAltman(&nbsp;)
 
-    blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='exact paired', detrend=None, **kwargs)
+    blandAltman(data1, data2,
+                limitOfAgreement=1.96,
+                confidenceInterval=95,
+                confidenceIntervalMethod='approximate',
+                detrend=None,
+                **kwargs)
 
 Generate a Bland-Altman plot to compare two sets of measurements of the same value.
 
