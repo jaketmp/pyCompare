@@ -38,6 +38,12 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	:type confidenceInterval: None or float
 	:param detrend: If not ``None`` attempt to 
 	:type detrend: None or str
+	:param str title: Title text
+	:param figureSize: Figure size as a tuple of (width, height) in inches
+	:type figureSize: (float, float)
+	:param int dpi: Figure resolution
+	:param str savePath: If not ``None``, save figure at this path
+	:param str figureFormat: When saving figure use this format
 
 	.. [#] Altman, D. G., and Bland, J. M. “Measurement in Medicine: The Analysis of Method Comparison Studies” Journal of the Royal Statistical Society. Series D (The Statistician), vol. 32, no. 3, 1983, pp. 307–317. `JSTOR <https://www.jstor.org/stable/2987937>`_.
 	.. [#] Altman, D. G., and Bland, J. M. “Measuring agreement in method comparison studies” Statistical Methods in Medical Research, vol. 8, no. 2, 1999, pp. 135–160. `DOI <https://doi.org/10.1177/096228029900800204>`_.

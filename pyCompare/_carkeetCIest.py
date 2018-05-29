@@ -6,9 +6,15 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 	"""
 	Calculate  CI intervals on the paired LoA by the Carkeet method.
 
+	Returns the coefficient determining the (gamma x 100)% confidence interval on the on the SD x limitOfAggreement.
+
+	Position of the limit is calculated as :math:`mean difference + (coefficient * sd of differences)`
+
 	:param int n: Number of paired observations
 	:param float gamma: Calculate coefficient for this bound
 	:param float limitOfAgreement: Multiples of SD being considered
+	:return: Coefficient determining the (gamma x 100)% confidence interval on the on the SD x limitOfAggreement limit
+	:rtype: float
 	"""
 
 	Degf = n - 1
@@ -39,13 +45,12 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 			startp = (0.5 + p/2)
 	
 			resti = stats.norm.ppf(startp) + xtest - .1
-			restiprior = resti;
-			phigh = stats.norm.cdf(xtest+resti)
+			restiprior = resti
+			phigh = stats.norm.cdf(xtest + resti)
 			plow = stats.norm.cdf(xtest - resti)
 			pesti = phigh - plow
 	
 			pestiprior = pesti
-			perror = pesti - p
 			resti = resti + .11
 			phigh = stats.norm.cdf(xtest + resti)
 			plow = stats.norm.cdf(xtest - resti)
@@ -57,7 +62,7 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 			newresti = resti - perror / deltap * deltaresti
 			restiprior = resti
 
-			resti = newresti;
+			resti = newresti
 
 			pestiprior = pesti
 			phigh = stats.norm.cdf(xtest + resti)
@@ -72,7 +77,7 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 				newresti = resti - perror / deltap * deltaresti
 				restiprior = resti
 
-				resti = newresti;
+				resti = newresti
 
 				pestiprior = pesti
 				phigh = stats.norm.cdf(xtest + resti)
@@ -92,7 +97,7 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 			M = Combpdf[s+1] * stepper * 2
 
 			T = (Combpdf[s] + Combpdf[s+2]) * stepper
-			Integ = Integ + (M*2+T)/ 3 * shrinkfactor 
+			Integ = Integ + (M*2+T)/ 3 * shrinkfactor
 
 		gammaest = Integ
 		if (gammaest * directK) > (gamma * directK):
@@ -100,4 +105,3 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 			Kstep = - Kstep / 2
 
 	return Kest
-

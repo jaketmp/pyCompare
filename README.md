@@ -34,15 +34,17 @@ Generate a Bland-Altman plot to compare two sets of measurements of the same val
 
 If not `None` plot confidence interval over the *x*% range with `confidenceInterval=x`
 
-Confidence intervals on the limit of agreement may be calculated using:
+Confidence intervals on the mean difference and limit of agreement may be calculated using:
 - 'exact paired' uses the exact paired method described by Carkeet
 - 'approximate' uses the approximate method described by Bland & Altman
 
-The exact paired method will give more accurate results when the number of paired measurements is low (approx < 100), at the expense of much slower plotting time.
+The 'exact paired' method will give more accurate confidence intervals on the limits of agreement when the number of paired measurements is low (approx < 100), at the expense of much slower plotting time.
 
 The *detrend* parameter supports the following options:
 - ``None`` do not attempt to detrend data - plots raw values
 - 'Linear' attempt to model and remove a multiplicative offset between each assay by linear regression
+
+Plots can be displayed interactively, or saved with the `savePath=` argument. When saving, plot type can be chosen from those known by [matplotlib](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.savefig.html) with the `figureFormat=` argument.
 
 #### References
 
