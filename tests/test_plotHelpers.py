@@ -60,3 +60,48 @@ class test_helpers(unittest.TestCase):
 				obtained.append(numpy.round(result, 4))
 
 		numpy.testing.assert_allclose(expected, obtained, atol=0.001)
+
+
+	def test_detrend(self):
+
+		from pyCompare._detrend import detrend
+
+		sampleCount = numpy.random.randint(50, 500, size=None)
+		data1 = numpy.random.randn(sampleCount)
+
+		slope = (50 - 0.1) * numpy.random.random_sample() + 0.1
+
+		with self.subTest(msg='None'):
+
+			data2 = data1 * slope
+
+			data2Obtained, slopeObtained, slopeErrObtained = detrend(None, data1, data2)
+
+			numpy.testing.assert_array_equal(data2, data2Obtained)
+			self.assertIsNone(slopeObtained)
+			self.assertIsNone(slopeErrObtained)
+
+		with self.subTest(msg='Linear'):
+
+			data2 = data1 * slope
+
+			data2Obtained, slopeObtained, slopeErrObtained = detrend('Linear', data1, data2)
+
+			numpy.testing.assert_allclose(data1, data2Obtained)
+			numpy.testing.assert_allclose(slope, slopeObtained)
+
+		with self.subTest(msg='ODR'):
+
+			data2 = data1 * slope
+
+			data2Obtained, slopeObtained, slopeErrObtained = detrend('ODR', data1, data2)
+
+			numpy.testing.assert_allclose(data1, data2Obtained)
+			numpy.testing.assert_allclose(slope, slopeObtained)
+
+
+	def test_detrend_raises(self):
+
+		from pyCompare._detrend import detrend
+
+		self.assertRaises(NotImplementedError, detrend, 'Not known', None, None)

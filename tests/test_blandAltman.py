@@ -41,14 +41,6 @@ class test_plotting(unittest.TestCase):
 										  confidenceIntervalMethod='approximate', # Use aproximate method for speed
 										  savePath=outputPath)
 
-			with self.subTest(msg='linear detrend'):
-				outputPath = os.path.join(tmpdirname, 'plot_detrend')
-				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
-										  numpy.random.rand(noSamp)*50+100,
-										  confidenceInterval=None,
-										  detrend='linear',
-										  savePath=outputPath)
-
 				self.assertTrue(os.path.exists(outputPath))
 
 			with self.subTest(msg='title'):

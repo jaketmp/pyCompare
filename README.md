@@ -43,6 +43,9 @@ The 'exact paired' method will give more accurate confidence intervals on the li
 The *detrend* parameter supports the following options:
 - ``None`` do not attempt to detrend data - plots raw values
 - 'Linear' attempt to model and remove a multiplicative offset between each assay by linear regression
+- 'ODR' attempt to model and remove a multiplicative offset between each assay by orthogonal distance regression
+
+'ODR' is the recommended method if you do not use ``None``.
 
 Plots can be displayed interactively, or saved with the `savePath=` argument. When saving, plot type can be chosen from those known by [matplotlib](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.savefig.html) with the `figureFormat=` argument.
 

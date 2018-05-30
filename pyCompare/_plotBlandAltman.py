@@ -10,7 +10,7 @@ from itertools import repeat
 
 from ._rangeFrameLocator import rangeFrameLocator
 from ._carkeetCIest import carkeetCIest
-
+from ._detrend import detrend as detrendFun
 
 def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png'):
 	"""
@@ -27,6 +27,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	The *detrend* option supports the following options:
 	- ``None`` do not attempt to detrend data - plots raw values
 	- 'Linear' attempt to model and remove a multiplicative offset between each assay by linear regression
+	- 'ODR' attempt to model and remove a multiplicative offset between each assay by Orthogonal distance regression
 
 	:param data1: First measurement
 	:type data1: list like
@@ -54,16 +55,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 
 	fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
 
-	if detrend is None:
-		pass
-	elif detrend.lower() == 'linear':
-		reg = stats.linregress(data1, data2)
-
-		data2 = data2 / reg.slope
-
-	else:
-		raise NotImplementedError("'%s' is not a valid detrending method." % (detrend))
-
+	data2, slope, slopeErr = detrendFun(detrend, data1, data2)
 
 	mean = numpy.mean([data1, data2], axis=0)
 	diff = data1 - data2
@@ -167,8 +159,8 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 
 	if detrend is None:
 		pass
-	elif detrend.lower() == 'linear':
-		plt.text(1, -0.1, 'Slope correction factor: %.2f ± %.2f' % (reg.slope, reg.stderr), ha='right', transform=ax.transAxes)
+	else:
+		plt.text(1, -0.1, '%s slope correction factor: %.2f ± %.2f' % (detrend, slope, slopeErr), ha='right', transform=ax.transAxes)
 
 	if title:
 		ax.set_title(title)
