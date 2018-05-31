@@ -33,6 +33,16 @@ class test_plotting(unittest.TestCase):
 
 				self.assertTrue(os.path.exists(outputPath))
 
+			with self.subTest(msg="Detrend"):
+				outputPath = os.path.join(tmpdirname, 'detrend')
+				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
+										  numpy.random.rand(noSamp)*50+100,
+										  confidenceInterval=None,
+										  detrend='linear',
+										  savePath=outputPath)
+
+				self.assertTrue(os.path.exists(outputPath))
+
 			with self.subTest(msg='Modify LoA'):
 				outputPath = os.path.join(tmpdirname, 'plot_mod_LoA')
 				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
