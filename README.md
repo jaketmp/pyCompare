@@ -47,7 +47,18 @@ The *detrend* parameter supports the following options:
 
 'ODR' is the recommended method if you do not use ``None``.
 
-Plots can be displayed interactively, or saved with the `savePath=` argument. When saving, plot type can be chosen from those known by [matplotlib](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.savefig.html) with the `figureFormat=` argument.
+Plots are displayed using the current matplotlib backend by default, or may be saved with the `savePath=` argument.
+
+When saving, png format graphics are saved by default:
+
+    blandAltman(data1, data2,
+                savePath='SavedFigure.png')
+
+The save format type can be chosen from those known by [matplotlib](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.savefig.html) with the `figureFormat=` argument:
+
+    blandAltman(data1, data2,
+                savePath='SavedFigure.svg',
+                figureFormat='svg)
 
 #### References
 

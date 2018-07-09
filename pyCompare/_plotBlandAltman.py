@@ -7,7 +7,6 @@ import warnings
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from itertools import repeat
 
-
 from ._rangeFrameLocator import rangeFrameLocator
 from ._carkeetCIest import carkeetCIest
 from ._detrend import detrend as detrendFun
@@ -37,7 +36,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	:param confidenceInterval: If not ``None``, plot the specified percentage confidence interval on the mean and limits of agreement
 	:param str confidenceIntervalMethod: Method used to calculated confidence interval on the limits of agreement
 	:type confidenceInterval: None or float
-	:param detrend: If not ``None`` attempt to 
+	:param detrend: If not ``None`` attempt to detrend by the method specified
 	:type detrend: None or str
 	:param str title: Title text
 	:param figureSize: Figure size as a tuple of (width, height) in inches
@@ -52,6 +51,10 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	"""
 	if not limitOfAgreement > 0:
 		raise ValueError('"limitOfAgreement" must be a number greater than zero.') 
+
+	# Try to coerce variables to numpy arrays
+	data1 = numpy.asarray(data1)
+	data2 = numpy.asarray(data2)
 
 	fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
 
@@ -113,7 +116,6 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 		ax.axhspan(lowerLoAhigh,
 				   lowerLoAlow,
 				   facecolor='coral', alpha=0.2)
-
 
 	ax.scatter(mean, diff, alpha=0.5)
 

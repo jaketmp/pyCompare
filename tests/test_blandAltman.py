@@ -10,7 +10,7 @@ import pyCompare
 
 class test_plotting(unittest.TestCase):
 
-	def test_blandAtlman(self):
+	def test_blandAtlman_output(self):
 
 		noSamp = numpy.random.randint(100, high=500, size=None)
 
@@ -62,6 +62,16 @@ class test_plotting(unittest.TestCase):
 										  savePath=outputPath)
 
 				self.assertTrue(os.path.exists(outputPath))
+
+
+	def test_blandAtlman_screen(self):
+
+		noSamp = numpy.random.randint(100, high=500, size=None)
+
+		pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
+								  numpy.random.rand(noSamp)*50+100,
+								  confidenceIntervalMethod='approximate',
+								  savePath=None)
 
 
 	def test_blandAtlman_raises(self):

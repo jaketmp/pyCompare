@@ -30,7 +30,7 @@ setup(name='pyCompare',
 		   :target: https://codecov.io/gh/jaketmp/pyCompare
 		   :alt: Test coverage
 
-		.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238916.svg
+		.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg
 		   :target: https://doi.org/10.5281/zenodo.1238915
 		   :alt: Zenodo DOI
 
