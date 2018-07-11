@@ -4,6 +4,7 @@ import sys
 import unittest
 import tempfile
 import os
+from unittest import mock
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from itertools import repeat
 
@@ -105,3 +106,71 @@ class test_helpers(unittest.TestCase):
 		from pyCompare._detrend import detrend
 
 		self.assertRaises(NotImplementedError, detrend, 'Not known', None, None)
+
+
+	def test_calculateConfidenceIntervals(self):
+		from pyCompare._calculateConfidenceIntervals import calculateConfidenceIntervals
+
+		noSamp = numpy.random.randint(100, high=500, size=None)
+
+		data1 = numpy.random.rand(noSamp)
+		data2 = numpy.random.rand(noSamp)
+
+		with self.subTest(msg='Approximate'):
+
+			md = -16.26
+			sd = 19.61
+			n = 85
+			loA = 1.96
+			ci = 95
+
+			expected = {'mean': (-20.43, -12.09),
+						'upperLoA': (14.92, 29.43),
+						'lowerLoA': (-61.95, -47.44)}
+
+			obtained = calculateConfidenceIntervals(md, sd, n, loA, ci, 'Approximate')
+
+			key = 'mean'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+			key = 'upperLoA'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+			key = 'lowerLoA'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+
+		with self.subTest(msg='Exact paired'):
+
+			md = -16.26
+			sd = 19.61
+			n = 85
+			loA = 1.96
+			ci = 95
+
+			expected = {'mean': (-20.43, -12.09),
+						'upperLoA': (3.35, 22.96),
+						'lowerLoA': (-55.48, -35.87)}
+
+			# Mock to avoid running carkeetCIest again
+			with mock.patch('pyCompare._calculateConfidenceIntervals.parallelCarkeetCIest') as mocked:
+				mocked.return_value = (1, 2)
+				# mocked.__reduce__ = lambda self: (mock.MagicMock, ())
+				obtained = calculateConfidenceIntervals(md, sd, n, loA, ci, 'exact paired')
+
+			key = 'mean'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+			key = 'upperLoA'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+			key = 'lowerLoA'
+			numpy.testing.assert_array_almost_equal(expected[key], obtained[key], decimal=2)
+
+
+	def test_calculateConfidenceIntervals_raises(self):
+		from pyCompare._calculateConfidenceIntervals import calculateConfidenceIntervals
+
+		with self.subTest(msg='CI range smaller than 1%'):
+			self.assertRaises(ValueError, calculateConfidenceIntervals, None, None, 1, None, 0, None)
+
+		with self.subTest(msg='CI range greater than than 99%'):
+			self.assertRaises(ValueError, calculateConfidenceIntervals, None, None, 1, None, 100, None)
+
+		with self.subTest(msg='Unknown CI method'):
+			self.assertRaises(NotImplementedError, calculateConfidenceIntervals, 1, 1, 1, 1.96, 95, 'Undefined Method')

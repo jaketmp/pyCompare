@@ -2,14 +2,11 @@ import numpy
 import matplotlib.pyplot as plt
 import matplotlib.transforms as transforms
 import matplotlib.ticker as ticker
-from scipy import stats
 import warnings
-from concurrent.futures import ProcessPoolExecutor, as_completed
-from itertools import repeat
 
 from ._rangeFrameLocator import rangeFrameLocator
-from ._carkeetCIest import carkeetCIest
 from ._detrend import detrend as detrendFun
+from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
 def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png'):
 	"""
@@ -56,8 +53,6 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	data1 = numpy.asarray(data1)
 	data2 = numpy.asarray(data2)
 
-	fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
-
 	data2, slope, slopeErr = detrendFun(detrend, data1, data2)
 
 	mean = numpy.mean([data1, data2], axis=0)
@@ -66,62 +61,49 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	sd = numpy.std(diff, axis=0)
 
 	if confidenceInterval:
+		confidenceIntervals = calculateConfidenceIntervals(md, sd, len(diff), limitOfAgreement, confidenceInterval, confidenceIntervalMethod)
 
-		if (confidenceInterval > 99.9) | (confidenceInterval < 1):
-			raise ValueError('"confidenceInterval" must be a number in the range 1 to 99.')
+	else:
+		confidenceIntervals = dict()
 
-		n = len(diff)
+	_drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, (detrend, slope, slopeErr), title, figureSize, dpi, savePath, figureFormat)
 
-		confidenceInterval = confidenceInterval / 100.
 
-		confidenceIntervalMean = stats.norm.interval(confidenceInterval, loc=md, scale=sd/numpy.sqrt(n))
+def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat):
+	"""
+	Sub function to draw the plot.
+	"""
+	fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
 
-		ax.axhspan(confidenceIntervalMean[0],
-				   confidenceIntervalMean[1],
+	##
+	# Plot CIs if calculated
+	##
+	if 'mean' in confidenceIntervals.keys():
+		ax.axhspan(confidenceIntervals['mean'][0],
+				   confidenceIntervals['mean'][1],
 				   facecolor='#6495ED', alpha=0.2)
 
-		if confidenceIntervalMethod.lower() == 'exact paired':
-
-			coeffs = []
-			with ProcessPoolExecutor(max_workers=2) as executor:
-				for result in executor.map(carkeetCIest, repeat(n), [(1 - confidenceInterval) / 2., 1 - (1 - confidenceInterval) / 2.], repeat(limitOfAgreement)):
-					coeffs.append(result)
-			coefInner = coeffs[0]
-			coefOuter = coeffs[1]
-
-			upperLoAhigh = md + (coefOuter * sd)
-			upperLoAlow = md + (coefInner * sd)
-
-			lowerLoAhigh = md - (coefOuter * sd)
-			lowerLoAlow = md - (coefInner * sd)
-
-		elif confidenceIntervalMethod.lower() == 'approximate':
-
-			seLoA = ((1/n) + (limitOfAgreement**2 / (2 * (n - 1)))) * (sd**2)
-			loARange = numpy.sqrt(seLoA) * stats.t._ppf((1-confidenceInterval)/2., n-1)
-
-			upperLoAhigh = (md + limitOfAgreement*sd) + loARange
-			upperLoAlow = (md + limitOfAgreement*sd) - loARange
-
-			lowerLoAhigh = (md - limitOfAgreement*sd) + loARange
-			lowerLoAlow = (md - limitOfAgreement*sd) - loARange
-
-		else:
-			raise NotImplementedError("'%s' is not an valid method of calculating confidance intervals")
-
-		ax.axhspan(upperLoAhigh,
-				   upperLoAlow,
+	if 'upperLoA' in confidenceIntervals.keys():
+		ax.axhspan(confidenceIntervals['upperLoA'][0],
+				   confidenceIntervals['upperLoA'][1],
 				   facecolor='coral', alpha=0.2)
 
-		ax.axhspan(lowerLoAhigh,
-				   lowerLoAlow,
+	if 'lowerLoA' in confidenceIntervals.keys():
+		ax.axhspan(confidenceIntervals['lowerLoA'][0],
+				   confidenceIntervals['lowerLoA'][1],
 				   facecolor='coral', alpha=0.2)
 
-	ax.scatter(mean, diff, alpha=0.5)
-
+	##
+	# Plot the mean diff and LoA
+	##
 	ax.axhline(md, color='#6495ED', linestyle='--')
 	ax.axhline(md + limitOfAgreement*sd, color='coral', linestyle='--')
 	ax.axhline(md - limitOfAgreement*sd, color='coral', linestyle='--')
+
+	##
+	# Plot the data points
+	##
+	ax.scatter(mean, diff, alpha=0.5)
 
 	trans = transforms.blended_transform_factory(
 		ax.transAxes, ax.transData)
@@ -159,10 +141,10 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 
 	ax.patch.set_alpha(0)
 
-	if detrend is None:
+	if detrend[0] is None:
 		pass
 	else:
-		plt.text(1, -0.1, '%s slope correction factor: %.2f ± %.2f' % (detrend, slope, slopeErr), ha='right', transform=ax.transAxes)
+		plt.text(1, -0.1, '%s slope correction factor: %.2f ± %.2f' % detrend, ha='right', transform=ax.transAxes)
 
 	if title:
 		ax.set_title(title)

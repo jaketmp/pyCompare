@@ -19,7 +19,7 @@ def rangeFrameLocator(tickLocs, axisRange):
 			pass
 		else:
 			newTicks.append(tick)
-	
+
 	newTicks.append(axisRange[1])
-	
+
 	return newTicks

@@ -7,9 +7,7 @@ import os
 ##
 # Handle undefined DISPLAY on Travis
 ##
-if os.environ.get('DISPLAY','') == '':
-	print('no display found. Using non-interactive Agg backend')
-	matplotlib.use('Agg')
+matplotlib.use('Agg')
 
 ##
 # Decoy warning to catch the `dictionary changed size during iteration` RuntimeError
