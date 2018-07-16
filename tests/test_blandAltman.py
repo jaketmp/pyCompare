@@ -24,6 +24,15 @@ class test_plotting(unittest.TestCase):
 
 				self.assertTrue(os.path.exists(outputPath))
 
+			with self.subTest(msg='No CIs'):
+				outputPath = os.path.join(tmpdirname, 'noCIplot')
+				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
+										  numpy.random.rand(noSamp)*50+100,
+										  confidenceInterval=None,
+										  savePath=outputPath)
+
+				self.assertTrue(os.path.exists(outputPath))
+
 
 	def test_blandAtlman_screen(self):
 

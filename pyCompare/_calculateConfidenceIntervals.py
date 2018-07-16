@@ -50,7 +50,7 @@ def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval
 # Split out so we can mock the return value in testing
 # (and ProcessPoolExecutor & mock do not play well togther so we can't mock carkeetCIest)
 ##
-def parallelCarkeetCIest(n, confidenceInterval, limitOfAgreement):
+def parallelCarkeetCIest(n, confidenceInterval, limitOfAgreement): # pragma: no cover
 	coeffs = []
 	with ProcessPoolExecutor(max_workers=2) as executor:
 		for result in executor.map(carkeetCIest, repeat(n), [(1 - confidenceInterval) / 2., 1 - (1 - confidenceInterval) / 2.], repeat(limitOfAgreement)):

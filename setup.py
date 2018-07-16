@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pyCompare',
-	version='1.2.2',
+	version='1.2.3',
 	description='Bland-Altman plots for Python',
 	url='https://github.com/jaketmp/pyCompare',
 	author='Jake TM Pearce',
