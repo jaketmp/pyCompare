@@ -9,8 +9,8 @@ def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval
 
 	confidenceIntervals = dict()
 
-	if (confidenceInterval > 99.9) | (confidenceInterval < 1):
-		raise ValueError('"confidenceInterval" must be a number in the range 1 to 99.')
+	if not (confidenceInterval < 99.9) & (confidenceInterval > 1):
+		raise ValueError(f'"confidenceInterval" must be a number in the range 1 to 99, "{confidenceInterval}" provided.')
 
 	confidenceInterval = confidenceInterval / 100.
 
@@ -41,7 +41,7 @@ def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval
 										   (md - limitOfAgreement*sd) - loARange)
 
 	else:
-		raise NotImplementedError("'%s' is not an valid method of calculating confidance intervals" % (str(confidenceIntervalMethod)))
+		raise NotImplementedError(f"'{confidenceIntervalMethod}' is not an valid method of calculating confidance intervals")
 	
 	return confidenceIntervals
 

@@ -42,6 +42,6 @@ def detrend(method, data1, data2):
 		data2 = data2 / slope
 
 	else:
-		raise NotImplementedError("'%s' is not a valid detrending method." % (detrend))
+		raise NotImplementedError(f"'{detrend}' is not a valid detrending method.")
 
 	return data2, slope, slopeErr

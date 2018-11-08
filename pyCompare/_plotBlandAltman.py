@@ -112,13 +112,13 @@ def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, 
 	offset = (limitOfAgreementRange / 100.0) * 1.5
 
 	ax.text(0.98, md + offset, 'Mean', ha="right", va="bottom", transform=trans)
-	ax.text(0.98, md - offset, '%.2f' % (md), ha="right", va="top", transform=trans)
+	ax.text(0.98, md - offset, f'{md:.2f}', ha="right", va="top", transform=trans)
 
-	ax.text(0.98, md + (limitOfAgreement * sd) + offset, '+%.2f SD' % (limitOfAgreement), ha="right", va="bottom", transform=trans)
-	ax.text(0.98, md + (limitOfAgreement * sd) - offset, '%.2f' % (md + limitOfAgreement*sd), ha="right", va="top", transform=trans)
+	ax.text(0.98, md + (limitOfAgreement * sd) + offset, f'+{limitOfAgreement:.2f} SD', ha="right", va="bottom", transform=trans)
+	ax.text(0.98, md + (limitOfAgreement * sd) - offset, f'{md + limitOfAgreement*sd:.2f}', ha="right", va="top", transform=trans)
 
-	ax.text(0.98, md - (limitOfAgreement * sd) - offset, '-%.2f SD' % (limitOfAgreement), ha="right", va="top", transform=trans)
-	ax.text(0.98, md - (limitOfAgreement * sd) + offset, '%.2f' % (md - limitOfAgreement*sd), ha="right", va="bottom", transform=trans)
+	ax.text(0.98, md - (limitOfAgreement * sd) - offset, f'-{limitOfAgreement:.2f} SD', ha="right", va="top", transform=trans)
+	ax.text(0.98, md - (limitOfAgreement * sd) + offset, f'{md - limitOfAgreement*sd:.2f}', ha="right", va="bottom", transform=trans)
 
 	# Only draw spine between extent of the data
 	ax.spines['left'].set_bounds(min(diff), max(diff))
@@ -144,7 +144,7 @@ def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, 
 	if detrend[0] is None:
 		pass
 	else:
-		plt.text(1, -0.1, '%s slope correction factor: %.2f ± %.2f' % detrend, ha='right', transform=ax.transAxes)
+		plt.text(1, -0.1, f'{detrend[0]} slope correction factor: {detrend[1]:.2f} ± {detrend[2]:.2f}', ha='right', transform=ax.transAxes)
 
 	if title:
 		ax.set_title(title)
