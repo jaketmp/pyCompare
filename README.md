@@ -1,6 +1,7 @@
 # pyCompare <img src="docs/_static/pyCompare.png" width="200" style="max-width: 30%;" align="right" />
 
-[![Build Status](https://travis-ci.org/jaketmp/pyCompare.svg?branch=master)](https://travis-ci.org/jaketmp/pyCompare) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![Python36](https://img.shields.io/badge/python-3.6-blue.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915)  [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/)
+[![Build Status](https://travis-ci.org/jaketmp/pyCompare.svg?branch=master)](https://travis-ci.org/jaketmp/pyCompare) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyCompare.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915)  [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/) 
+
 
 A Python module for generating [Bland-Altman](https://en.wikipedia.org/wiki/Bland–Altman_plot) plots to compare two sets of measurements.
 

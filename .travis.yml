@@ -2,10 +2,13 @@ language: python
 python:
   - "3.6"
   - "3.6-dev"  # 3.6 development branch
-  - "3.7"
   - "3.7-dev"  # 3.7 development branch
 
 matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
   allow_failures:
     - python: "3.7-dev"
 
@@ -27,6 +30,7 @@ before_script:
   - cd tests
 
 script:
+  - echo "Running unit tests against $(python --version)"
   - travis_wait 30 coverage run -m unittest discover
 
 after_success:
@@ -34,13 +38,18 @@ after_success:
   - codecov
   - cd ../
 
-deploy:
-  provider: pypi
-  distributions: "sdist bdist_wheel"
-  user: "jaketmp"
-  password:
-    secure: wUPqbE9qTrZO/6/izWukK1X/sCKikILB7X6XsZt3ViUlyUMkeXrjREcuMT5oirAyKs4XWIP4pIQRZnRwrZAcEJ4gHHxAqd+FubhoAPEOryyq++uMJhLY4p8n7in9uh2QERX9pNtHmo7gy8OxyBhwGHaFf2sOOxoYAoszqm0I5YE0rXnPhCB46ML0LoLDvO0ODGl6Eqs71URZ+uSxvvdBpvXCFa2x572fGJu+XbquBBByqB6ExUBv1pC/IYFAkMyRm/bGh1gnvOO5+DHyivcBii+3D3sjTxDnwgrki7W7OIAoDIHDz+Ww2sSKQCvETeHScOqEk0tr9M1cwCiW0hJwaB8KMBTRm4qDQPX5HB8uFCKcGLCdDsc9zrvQK1F2YgIkvUI3JJevaSiXmysf4KngtiR3ksqGcLDlKZkacdXV+wbq0/UKwD6JjjF4sAtdMY8FGMW11RJX1ptbpkSnrZnBURhNpcHhVV/9kpGNJZcR/nbN+6kNqG4TYx7LwJqHA7jivJ4y0w5Ijx3NNV93MUrmGdcxelO2CPFPLhACBnt3yr/Xe+0BU6UXMGMSU8lloE7uL+nTB63LtRfYgn7zhBHJZZBLJOD8KCW9iAPox9/HqohfJUTD4tCc3fltSNGM1T8dd5uke29oC+rspSHqPlwCOpjIoxXc7A45CkZJLr5nl8k=
-  on:
-    branch: master
-    tags: true
-    python: 3.6
+jobs:
+  include:
+    - stage: deploy
+      if: branch = master AND tag IS present
+      python: 3.6
+      script: echo "Deploying to PyPi."
+      deploy:
+        provider: pypi
+        distributions: "sdist bdist_wheel"
+        user: "jaketmp"
+        password:
+          secure: wUPqbE9qTrZO/6/izWukK1X/sCKikILB7X6XsZt3ViUlyUMkeXrjREcuMT5oirAyKs4XWIP4pIQRZnRwrZAcEJ4gHHxAqd+FubhoAPEOryyq++uMJhLY4p8n7in9uh2QERX9pNtHmo7gy8OxyBhwGHaFf2sOOxoYAoszqm0I5YE0rXnPhCB46ML0LoLDvO0ODGl6Eqs71URZ+uSxvvdBpvXCFa2x572fGJu+XbquBBByqB6ExUBv1pC/IYFAkMyRm/bGh1gnvOO5+DHyivcBii+3D3sjTxDnwgrki7W7OIAoDIHDz+Ww2sSKQCvETeHScOqEk0tr9M1cwCiW0hJwaB8KMBTRm4qDQPX5HB8uFCKcGLCdDsc9zrvQK1F2YgIkvUI3JJevaSiXmysf4KngtiR3ksqGcLDlKZkacdXV+wbq0/UKwD6JjjF4sAtdMY8FGMW11RJX1ptbpkSnrZnBURhNpcHhVV/9kpGNJZcR/nbN+6kNqG4TYx7LwJqHA7jivJ4y0w5Ijx3NNV93MUrmGdcxelO2CPFPLhACBnt3yr/Xe+0BU6UXMGMSU8lloE7uL+nTB63LtRfYgn7zhBHJZZBLJOD8KCW9iAPox9/HqohfJUTD4tCc3fltSNGM1T8dd5uke29oC+rspSHqPlwCOpjIoxXc7A45CkZJLr5nl8k=
+        on:
+          branch: master
+          tags: true
