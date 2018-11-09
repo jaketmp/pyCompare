@@ -1,4 +1,10 @@
 language: python
+
+stages:
+  - test
+  - name: deploy
+    if: branch = master AND tag IS present
+
 python:
   - "3.6"
   - "3.6-dev"  # 3.6 development branch
@@ -41,8 +47,7 @@ after_success:
 jobs:
   include:
     - stage: deploy
-      if: branch = master AND tag IS present
-      python: 3.6
+      python: "3.6"
       script: echo "Deploying to PyPi."
       deploy:
         provider: pypi
