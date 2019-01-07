@@ -1,9 +1,12 @@
 # pyCompare <img src="docs/_static/pyCompare.png" width="200" style="max-width: 30%;" align="right" />
 
-[![Build Status](https://travis-ci.org/jaketmp/pyCompare.svg?branch=master)](https://travis-ci.org/jaketmp/pyCompare) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyCompare.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915)  [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/) 
+[![Build Status](https://travis-ci.org/jaketmp/pyCompare.svg?branch=master)](https://travis-ci.org/jaketmp/pyCompare) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyCompare.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915) [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaketmp/pyCompare/master?filepath=pyCompare-Demo.ipynb)
+
 
 
 A Python module for generating [Bland-Altman](https://en.wikipedia.org/wiki/Bland–Altman_plot) plots to compare two sets of measurements.
+
+You can try out the code using [Binder](https://mybinder.org/v2/gh/jaketmp/pyCompare/master?filepath=pyCompare-Demo.ipynb).
 
 <img src="docs/_static/bland_altman.png" style="max-width: 60%;" align="center" />
 
@@ -62,6 +65,8 @@ The save format type can be chosen from those known by [matplotlib](https://matp
                 figureFormat='svg)
 
 #### References
+
+To cite `pyCompare`, use the Zendo DOI: [10.5281/zenodo.1238915](https://doi.org/10.5281/zenodo.1238915).
 
 - Altman, D. G., and Bland, J. M. “Measurement in Medicine: The Analysis of Method Comparison Studies” Journal of the Royal Statistical Society. Series D (The Statistician), vol. 32, no. 3, 1983, pp. 307–317. [JSTOR](https://www.jstor.org/stable/2987937).
 - Altman, D. G., and Bland, J. M. “Measuring agreement in method comparison studies” Statistical Methods in Medical Research, vol. 8, no. 2, 1999, pp. 135–160. [DOI](https://doi.org/10.1177/096228029900800204).
