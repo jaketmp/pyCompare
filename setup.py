@@ -6,7 +6,7 @@ path = os.path.dirname(path)
 path = os.path.join(path, 'pyCompare', 'VERSION')
 
 with open(path, 'r') as file:
-	__version__ = file.readline().strip()
+	VERSION = file.readline().strip()
 
 setup(name='pyCompare',
 	version=VERSION,
