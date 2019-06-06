@@ -8,7 +8,7 @@ from ._rangeFrameLocator import rangeFrameLocator
 from ._detrend import detrend as detrendFun
 from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
-def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png'):
+def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED'):
 	"""
 	blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=None, **kwargs)
 
@@ -41,6 +41,9 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	:param int dpi: Figure resolution
 	:param str savePath: If not ``None``, save figure at this path
 	:param str figureFormat: When saving figure use this format
+	:param str meanColour: Colour to use for plotting the mean difference
+	:param str loaColour: Colour to use for plotting the limits of agreement
+	:param str pointColour: Colour for plotting data points
 
 	.. [#] Altman, D. G., and Bland, J. M. “Measurement in Medicine: The Analysis of Method Comparison Studies” Journal of the Royal Statistical Society. Series D (The Statistician), vol. 32, no. 3, 1983, pp. 307–317. `JSTOR <https://www.jstor.org/stable/2987937>`_.
 	.. [#] Altman, D. G., and Bland, J. M. “Measuring agreement in method comparison studies” Statistical Methods in Medical Research, vol. 8, no. 2, 1999, pp. 135–160. `DOI <https://doi.org/10.1177/096228029900800204>`_.
@@ -66,10 +69,21 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	else:
 		confidenceIntervals = dict()
 
-	_drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, (detrend, slope, slopeErr), title, figureSize, dpi, savePath, figureFormat)
+	_drawBlandAltman(mean, diff, md, sd,
+					 limitOfAgreement,
+					 confidenceIntervals,
+					 (detrend, slope, slopeErr),
+					 title,
+					 figureSize,
+					 dpi,
+					 savePath,
+					 figureFormat,
+					 meanColour,
+					 loaColour,
+					 pointColour)
 
 
-def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat):
+def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat, meanColour, loaColour, pointColour):
 	"""
 	Sub function to draw the plot.
 	"""
@@ -81,29 +95,29 @@ def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, 
 	if 'mean' in confidenceIntervals.keys():
 		ax.axhspan(confidenceIntervals['mean'][0],
 				   confidenceIntervals['mean'][1],
-				   facecolor='#6495ED', alpha=0.2)
+				   facecolor=meanColour, alpha=0.2)
 
 	if 'upperLoA' in confidenceIntervals.keys():
 		ax.axhspan(confidenceIntervals['upperLoA'][0],
 				   confidenceIntervals['upperLoA'][1],
-				   facecolor='coral', alpha=0.2)
+				   facecolor=loaColour, alpha=0.2)
 
 	if 'lowerLoA' in confidenceIntervals.keys():
 		ax.axhspan(confidenceIntervals['lowerLoA'][0],
 				   confidenceIntervals['lowerLoA'][1],
-				   facecolor='coral', alpha=0.2)
+				   facecolor=loaColour, alpha=0.2)
 
 	##
 	# Plot the mean diff and LoA
 	##
-	ax.axhline(md, color='#6495ED', linestyle='--')
-	ax.axhline(md + limitOfAgreement*sd, color='coral', linestyle='--')
-	ax.axhline(md - limitOfAgreement*sd, color='coral', linestyle='--')
+	ax.axhline(md, color=meanColour, linestyle='--')
+	ax.axhline(md + limitOfAgreement*sd, color=loaColour, linestyle='--')
+	ax.axhline(md - limitOfAgreement*sd, color=loaColour, linestyle='--')
 
 	##
 	# Plot the data points
 	##
-	ax.scatter(mean, diff, alpha=0.5)
+	ax.scatter(mean, diff, alpha=0.5, c=pointColour)
 
 	trans = transforms.blended_transform_factory(
 		ax.transAxes, ax.transData)

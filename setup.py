@@ -1,7 +1,15 @@
 from setuptools import setup, find_packages
+import os
+
+path = os.path.realpath(__file__)
+path = os.path.dirname(path)
+path = os.path.join(path, 'pyCompare', 'VERSION')
+
+with open(path, 'r') as file:
+	__version__ = file.readline().strip()
 
 setup(name='pyCompare',
-	version='1.2.3',
+	version=VERSION,
 	description='Bland-Altman plots for Python',
 	url='https://github.com/jaketmp/pyCompare',
 	author='Jake TM Pearce',

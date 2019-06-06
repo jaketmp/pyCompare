@@ -76,7 +76,10 @@ class test_plotting(unittest.TestCase):
 								 (10, 7),
 								 72,
 								 outputPath,
-								 'png')
+								 'png',
+								 'red',
+								 'green',
+								 'blue')
 
 				self.assertTrue(os.path.exists(outputPath))
 
@@ -93,6 +96,9 @@ class test_plotting(unittest.TestCase):
 								 (10, 7),
 								 72,
 								 outputPath,
-								 'png')
+								 'png',
+								 'red',
+								 'green',
+								 'blue')
 
 				self.assertTrue(os.path.exists(outputPath))
