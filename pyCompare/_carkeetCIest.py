@@ -6,7 +6,7 @@ def carkeetCIest(n, gamma, limitOfAgreement):
 	"""
 	Calculate  CI intervals on the paired LoA by the Carkeet method.
 
-	Returns the coefficient determining the (gamma x 100)% confidence interval on the on the SD x limitOfAggreement.
+	Returns the coefficient determining the (gamma x 100)% confidence interval on the SD x limitOfAggreement.
 
 	Position of the limit is calculated as :math:`mean difference + (coefficient * sd of differences)`
 

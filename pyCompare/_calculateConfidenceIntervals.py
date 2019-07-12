@@ -6,7 +6,18 @@ from itertools import repeat
 from ._carkeetCIest import carkeetCIest
 
 def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval, confidenceIntervalMethod):
+	"""
+	Calculate confidence intervals on the mean difference and limits of agreement.
 
+	Two methods are supported, the approximate method descibed by Bland & Altman, and the exact paired method described by Carket.
+
+	:param float md:
+	:param float sd:
+	:param int n: Number of paired observations
+	:param float limitOfAgreement:
+	:param float confidenceInterval: Calculate confidence intervals over this range
+	:param str confidenceIntervalMethod: Algorithm to calculate CIs
+	"""
 	confidenceIntervals = dict()
 
 	if not (confidenceInterval < 99.9) & (confidenceInterval > 1):
@@ -48,7 +59,7 @@ def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval
 
 ##
 # Split out so we can mock the return value in testing
-# (and ProcessPoolExecutor & mock do not play well togther so we can't mock carkeetCIest)
+# (ProcessPoolExecutor & mock do not play well together so we can't mock carkeetCIest)
 ##
 def parallelCarkeetCIest(n, confidenceInterval, limitOfAgreement): # pragma: no cover
 	coeffs = []
