@@ -1,12 +1,17 @@
 from setuptools import setup, find_packages
 import os
 
-path = os.path.realpath(__file__)
-path = os.path.dirname(path)
-path = os.path.join(path, 'pyCompare', 'VERSION')
+basepath = os.path.realpath(__file__)
+basepath = os.path.dirname(basepath)
+path = os.path.join(basepath, 'pyCompare', 'VERSION')
 
 with open(path, 'r') as file:
 	VERSION = file.readline().strip()
+
+path = os.path.join(basepath, 'README.md')
+
+with open(path, 'r') as file:
+	README = file.read()
 
 setup(name='pyCompare',
 	version=VERSION,
@@ -30,23 +35,8 @@ setup(name='pyCompare',
 		"Topic :: Scientific/Engineering :: Bio-Informatics",
 		"Topic :: Scientific/Engineering :: Visualization",
 		],
-	long_description = """\
-		.. image:: https://travis-ci.org/jaketmp/pyCompare.svg?branch=master
-		   :target: https://travis-ci.org/jaketmp/pyCompare
-		   :alt: Travis CI build status
-
-		.. image:: https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg
-		   :target: https://codecov.io/gh/jaketmp/pyCompare
-		   :alt: Test coverage
-
-		.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg
-		   :target: https://doi.org/10.5281/zenodo.1238915
-		   :alt: Zenodo DOI
-
-		A Python module for generating `Bland-Altman <https://en.wikipedia.org/wiki/Bland–Altman_plot>`_ plots to compare two sets of measurements.
-
-		For documentation see the `project page <https://github.com/jaketmp/pyCompare>`_ on GitHub.
-		""",
+	long_description_content_type='text/markdown',
+	long_description = README,
 	documentation='https://github.com/jaketmp/pyCompare',
 	include_package_data=True,
 	zip_safe=True
