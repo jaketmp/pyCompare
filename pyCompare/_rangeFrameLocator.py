@@ -1,6 +1,6 @@
 def rangeFrameLocator(tickLocs, axisRange):
 	"""
-	Convert axis tick positions for a Tufte style range frame. Takes existing tick locations, places a tick at the min and max of the data, and drops exiting ticks that fall outside of this range or tooo colse to the margins.
+	Convert axis tick positions for a Tufte style range frame. Takes existing tick locations, places a tick at the min and max of the data, and drops existing ticks that fall outside of this range or too close to the margins.
 
 	TODO: Convert to a true axis artist that also sets spines
 
