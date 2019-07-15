@@ -23,7 +23,7 @@ setup(name='pyCompare',
 	install_requires=[
 		'numpy>=1.14.2',
 		'scipy>=1.0.1',
-		'matplotlib>=2.2.2',
+		'matplotlib>=3.0.2',
 	],
 	classifiers = [
 		"Programming Language :: Python",
