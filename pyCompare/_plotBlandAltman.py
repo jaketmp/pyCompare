@@ -8,7 +8,7 @@ from ._rangeFrameLocator import rangeFrameLocator
 from ._detrend import detrend as detrendFun
 from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
-def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED'):
+def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED', percentage=False):
 	"""
 	blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=None, **kwargs)
 
@@ -59,7 +59,12 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	data2, slope, slopeErr = detrendFun(detrend, data1, data2)
 
 	mean = numpy.mean([data1, data2], axis=0)
-	diff = data1 - data2
+
+	if percentage:
+		diff = ((data1 - data2) / mean) * 100
+	else:
+		diff = data1 - data2
+
 	md = numpy.mean(diff)
 	sd = numpy.std(diff, axis=0)
 
@@ -69,7 +74,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	else:
 		confidenceIntervals = dict()
 
-	_drawBlandAltman(mean, diff, md, sd,
+	_drawBlandAltman(mean, diff, md, sd, percentage,
 					 limitOfAgreement,
 					 confidenceIntervals,
 					 (detrend, slope, slopeErr),
@@ -83,7 +88,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 					 pointColour)
 
 
-def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat, meanColour, loaColour, pointColour):
+def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat, meanColour, loaColour, pointColour):
 	"""
 	Sub function to draw the plot.
 	"""
@@ -142,7 +147,10 @@ def _drawBlandAltman(mean, diff, md, sd, limitOfAgreement, confidenceIntervals, 
 	ax.spines['right'].set_visible(False)
 	ax.spines['top'].set_visible(False)
 
-	ax.set_ylabel('Difference between methods')
+	if percentage:
+		ax.set_ylabel('Percentage difference between methods')
+	else:
+		ax.set_ylabel('Difference between methods')
 	ax.set_xlabel('Mean of methods')
 
 	tickLocs = ax.xaxis.get_ticklocs()
