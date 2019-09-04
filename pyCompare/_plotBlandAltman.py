@@ -8,7 +8,7 @@ from ._rangeFrameLocator import rangeFrameLocator
 from ._detrend import detrend as detrendFun
 from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
-def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED', percentage=False):
+def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', percentage=False, detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED'):
 	"""
 	blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=None, **kwargs)
 
@@ -35,6 +35,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	:type confidenceInterval: None or float
 	:param detrend: If not ``None`` attempt to detrend by the method specified
 	:type detrend: None or str
+	:param bool percentage: If ``True``, plot differences as percentages (instead of in the units the data sources are in)
 	:param str title: Title text
 	:param figureSize: Figure size as a tuple of (width, height) in inches
 	:type figureSize: (float, float)

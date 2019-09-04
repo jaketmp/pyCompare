@@ -30,6 +30,7 @@ Installation with pip allows the usage of the uninstall command:
                 confidenceInterval=95,
                 confidenceIntervalMethod='approximate',
                 detrend=None,
+                percentage=False,
                 **kwargs)
 
 Generate a Bland-Altman plot to compare two sets of measurements of the same value.
@@ -50,6 +51,8 @@ The *detrend* parameter supports the following options:
 - 'ODR' attempt to model and remove a multiplicative offset between each assay by orthogonal distance regression
 
 'ODR' is the recommended method if you do not use ``None``.
+
+When `True`, the `percentage` option plots the difference between methods as a percentage, instead of in the units the methods were measured in.
 
 Plots are displayed using the current matplotlib backend by default, or may be saved with the `savePath=` argument.
 
