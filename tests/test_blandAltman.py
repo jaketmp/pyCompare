@@ -33,6 +33,15 @@ class test_plotting(unittest.TestCase):
 
 				self.assertTrue(os.path.exists(outputPath))
 
+			with self.subTest(msg='Percentage'):
+				outputPath = os.path.join(tmpdirname, 'plot_percentage')
+				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
+										  numpy.random.rand(noSamp)*50+100,
+										  confidenceIntervalMethod='approximate',
+										  percentage=True,
+										  savePath=outputPath)
+
+				self.assertTrue(os.path.exists(outputPath))
 
 	def test_blandAtlman_screen(self):
 
