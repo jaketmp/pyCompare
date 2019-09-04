@@ -1,3 +1,4 @@
+import matplotlib
 import numpy
 import pandas
 import sys
@@ -7,6 +8,11 @@ import os
 
 sys.path.append("..")
 import pyCompare
+
+##
+# Handle undefined DISPLAY on Travis
+##
+matplotlib.use('Agg')
 
 class test_plotting(unittest.TestCase):
 
