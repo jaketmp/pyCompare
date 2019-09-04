@@ -69,6 +69,7 @@ class test_plotting(unittest.TestCase):
 								 numpy.array([1.1,1.9,2.5,4.2,5.1,5.6]),
 								 0,
 								 1,
+								 False,
 								 1.96,
 								 {'mean':[-1,1],'upperLoA':[2,2.5], 'lowerLoA':[-2.5, 2]},
 								 ('detrending method', 12.2, 243.2),
@@ -89,6 +90,49 @@ class test_plotting(unittest.TestCase):
 								 numpy.array([1.1,1.9,2.5,4.2,5.1,5.6]),
 								 0,
 								 1,
+								 False,
+								 2,
+								 {},
+								 (None, None, None),
+								 'a title',
+								 (10, 7),
+								 72,
+								 outputPath,
+								 'png',
+								 'red',
+								 'green',
+								 'blue')
+
+				self.assertTrue(os.path.exists(outputPath))
+
+			with self.subTest(msg='Percentages, with CIs'):
+				outputPath = os.path.join(tmpdirname, 'save_plot_percentage')
+				_drawBlandAltman(numpy.array([1,2,3,4,5,6]),
+								 numpy.array([1.1,1.9,2.5,4.2,5.1,5.6]),
+								 0,
+								 1,
+								 True,
+								 1.96,
+								 {'mean':[-1,1],'upperLoA':[2,2.5], 'lowerLoA':[-2.5, 2]},
+								 ('detrending method', 12.2, 243.2),
+								 'a title',
+								 (10, 7),
+								 72,
+								 outputPath,
+								 'png',
+								 'red',
+								 'green',
+								 'blue')
+
+				self.assertTrue(os.path.exists(outputPath))
+
+			with self.subTest(msg='Percentages, no CIs'):
+				outputPath = os.path.join(tmpdirname, 'save_plot_percentag_no_CI')
+				_drawBlandAltman(numpy.array([1,2,3,4,5,6]),
+								 numpy.array([1.1,1.9,2.5,4.2,5.1,5.6]),
+								 0,
+								 1,
+								 True,
 								 2,
 								 {},
 								 (None, None, None),
