@@ -18,7 +18,7 @@ def raiseWarning():
 
 class test__AA__decoy(unittest.TestCase):
 
-	@unittest.expectedFailure
+	# @unittest.expectedFailure  # No longer fails, the bug above seems fixed
 	def test__AA(self):
 		csvFile = pandas.read_csv('referenceCIs.csv')
 		self.assertWarnsRegex(UserWarning, 'You were warned', raiseWarning)
