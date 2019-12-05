@@ -11,7 +11,7 @@ from itertools import repeat
 sys.path.append("..")
 import pyCompare
 
-class test_helpers(unittest.TestCase):
+class test_plotHelpers(unittest.TestCase):
 
 	def test_rangeFrameLocator(self):
 
@@ -23,15 +23,37 @@ class test_helpers(unittest.TestCase):
 		self.assertEqual(obtained, expected)
 
 		obtained = rangeFrameLocator([1,4,6,8,10,12,14,16], (2,9))
-		expected = [2, 4, 6, 9]
+		expected = [2, 4, 6, 8, 9]
 
 		self.assertEqual(obtained, expected)
 
 		obtained = rangeFrameLocator([2,4,6,8,10,12,14,16], (1.1,13.5))
-		expected = [1.1, 4, 6, 8, 10, 12, 13.5]
+		expected = [1.1, 2, 4, 6, 8, 10, 12, 13.5]
 
 		self.assertEqual(obtained, expected)
 
+
+	def test_rangeFrameLabler(self):
+
+		from pyCompare._rangeFrameLocator import rangeFrameLabler
+
+		obtained = rangeFrameLabler([2, 3, 4, 5, 6, 7, 8, 9], ['2', '3', '4', '5', '6', '7', '8', '9'], 1)
+		expected = ['2', '3', '4', '5', '6', '7', '8', '9']
+
+		self.assertEqual(obtained, expected)
+
+		obtained = rangeFrameLabler([1,1.5, 4, 6, 9], ['1','1.5', '4', '6', '9'], 2)
+		expected = ['1', '', '4', '6', '9']
+
+		self.assertEqual(obtained, expected)
+
+		obtained = rangeFrameLabler([1.1, 4, 6, 8, 10, 13, 13.5], ['1.1', '4', '6', '8', '10', '13', '13.5'], 2)
+		expected = ['1.1', '4', '6', '8', '10', '', '13.5']
+
+		self.assertEqual(obtained, expected)
+
+
+class test_statsHelpers(unittest.TestCase):
 
 	def test_carkeetCIest(self):
 

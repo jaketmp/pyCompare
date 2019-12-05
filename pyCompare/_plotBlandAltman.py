@@ -4,7 +4,7 @@ import matplotlib.transforms as transforms
 import matplotlib.ticker as ticker
 import warnings
 
-from ._rangeFrameLocator import rangeFrameLocator
+from ._rangeFrameLocator import rangeFrameLocator, rangeFrameLabler
 from ._detrend import detrend as detrendFun
 from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
@@ -155,12 +155,23 @@ def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenc
 	ax.set_xlabel('Mean of methods')
 
 	tickLocs = ax.xaxis.get_ticklocs()
+	cadenceX = tickLocs[2] - tickLocs[1]
 	tickLocs = rangeFrameLocator(tickLocs, (min(mean), max(mean)))
 	ax.xaxis.set_major_locator(ticker.FixedLocator(tickLocs))
 
 	tickLocs = ax.yaxis.get_ticklocs()
+	cadenceY = tickLocs[2] - tickLocs[1]
 	tickLocs = rangeFrameLocator(tickLocs, (min(diff), max(diff)))
 	ax.yaxis.set_major_locator(ticker.FixedLocator(tickLocs))
+
+	plt.draw() # Force drawing to populate tick labels
+
+	labels = rangeFrameLabler(ax.xaxis.get_ticklocs(), [item.get_text() for item in ax.get_xticklabels()], cadenceX)
+	ax.set_xticklabels(labels)
+
+	labels = rangeFrameLabler(ax.yaxis.get_ticklocs(), [item.get_text() for item in ax.get_yticklabels()], cadenceY)
+	ax.set_yticklabels(labels)
+
 
 	ax.patch.set_alpha(0)
 
