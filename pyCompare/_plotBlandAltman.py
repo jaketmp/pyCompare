@@ -8,7 +8,7 @@ from ._rangeFrameLocator import rangeFrameLocator, rangeFrameLabler
 from ._detrend import detrend as detrendFun
 from ._calculateConfidenceIntervals import calculateConfidenceIntervals
 
-def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', percentage=False, detrend=None, title=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED'):
+def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, confidenceIntervalMethod='approximate', percentage=False, detrend=None, title=None, ax=None, figureSize=(10,7), dpi=72, savePath=None, figureFormat='png', meanColour='#6495ED', loaColour='coral', pointColour='#6495ED'):
 	"""
 	blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=None, **kwargs)
 
@@ -37,6 +37,7 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	:type detrend: None or str
 	:param bool percentage: If ``True``, plot differences as percentages (instead of in the units the data sources are in)
 	:param str title: Title text
+	:param matplotlib.axes._subplots.AxesSubplot ax: Matplotlib axis handle - if not `None` draw into this axis rather than creating a new figure
 	:param figureSize: Figure size as a tuple of (width, height) in inches
 	:type figureSize: (float, float)
 	:param int dpi: Figure resolution
@@ -75,25 +76,33 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	else:
 		confidenceIntervals = dict()
 
-	_drawBlandAltman(mean, diff, md, sd, percentage,
-					 limitOfAgreement,
-					 confidenceIntervals,
-					 (detrend, slope, slopeErr),
-					 title,
-					 figureSize,
-					 dpi,
-					 savePath,
-					 figureFormat,
-					 meanColour,
-					 loaColour,
-					 pointColour)
+	ax = _drawBlandAltman(mean, diff, md, sd, percentage,
+						  limitOfAgreement,
+						  confidenceIntervals,
+						  (detrend, slope, slopeErr),
+						  title,
+						  ax,
+						  figureSize,
+						  dpi,
+						  savePath,
+						  figureFormat,
+						  meanColour,
+						  loaColour,
+						  pointColour)
+
+	if ax is not None:
+		return ax
 
 
-def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenceIntervals, detrend, title, figureSize, dpi, savePath, figureFormat, meanColour, loaColour, pointColour):
+def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenceIntervals, detrend, title, ax, figureSize, dpi, savePath, figureFormat, meanColour, loaColour, pointColour):
 	"""
 	Sub function to draw the plot.
 	"""
-	fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
+	if ax is None:
+		fig, ax = plt.subplots(figsize=figureSize, dpi=dpi)
+		draw = True
+	else:
+		draw = False
 
 	##
 	# Plot CIs if calculated
@@ -186,8 +195,10 @@ def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenc
 	##
 	# Save or draw
 	##
-	if savePath:
+	if (savePath is not None) & draw:
 		fig.savefig(savePath, format=figureFormat, dpi=dpi)
 		plt.close()
-	else:
+	elif draw:
 		plt.show()
+	else:
+		return ax

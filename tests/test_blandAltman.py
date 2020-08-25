@@ -10,15 +10,18 @@ import pyCompare
 
 class test_plotting(unittest.TestCase):
 
-	def test_blandAtlman_saves(self):
+	def setUp(self):
 
-		noSamp = numpy.random.randint(100, high=500, size=None)
+		self.noSamp = numpy.random.randint(100, high=500, size=None)
+
+
+	def test_blandAtlman_saves(self):
 
 		with tempfile.TemporaryDirectory() as tmpdirname:
 			with self.subTest(msg='Default Parameters'):
 				outputPath = os.path.join(tmpdirname, 'plot')
-				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
-										  numpy.random.rand(noSamp)*50+100,
+				pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+										  numpy.random.rand(self.noSamp)*50+100,
 										  confidenceIntervalMethod='approximate',
 										  savePath=outputPath)
 
@@ -26,8 +29,8 @@ class test_plotting(unittest.TestCase):
 
 			with self.subTest(msg='No CIs'):
 				outputPath = os.path.join(tmpdirname, 'noCIplot')
-				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
-										  numpy.random.rand(noSamp)*50+100,
+				pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+										  numpy.random.rand(self.noSamp)*50+100,
 										  confidenceInterval=None,
 										  savePath=outputPath)
 
@@ -35,28 +38,62 @@ class test_plotting(unittest.TestCase):
 
 			with self.subTest(msg='Percentage'):
 				outputPath = os.path.join(tmpdirname, 'plot_percentage')
-				pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
-										  numpy.random.rand(noSamp)*50+100,
+				pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+										  numpy.random.rand(self.noSamp)*50+100,
 										  confidenceIntervalMethod='approximate',
 										  percentage=True,
 										  savePath=outputPath)
 
 				self.assertTrue(os.path.exists(outputPath))
 
+
+	def test_blandAtlman_axis_handle(self):
+
+		import matplotlib
+
+		with self.subTest(msg='Single axis'):
+
+			fig, ax = matplotlib.pyplot.subplots()
+
+			ax = pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+									  numpy.random.rand(self.noSamp)*50+100,
+									  confidenceIntervalMethod='approximate',
+									  savePath=None,
+									  ax=ax)
+
+			self.assertTrue(isinstance(ax, matplotlib.axes._subplots.Axes))
+
+		with self.subTest(msg='Multiple axes'):
+
+			fig, ax = matplotlib.pyplot.subplots(2,2)
+
+			ax1 = pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+									   numpy.random.rand(self.noSamp)*50+100,
+									   confidenceIntervalMethod='approximate',
+									   savePath=None,
+									   ax=ax[1,1])
+
+			ax2 = pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+									   numpy.random.rand(self.noSamp)*50+100,
+									   confidenceIntervalMethod='approximate',
+									   savePath=None,
+									   ax=ax[0,0])
+
+			self.assertTrue(isinstance(ax1, matplotlib.axes._subplots.Axes))
+			self.assertTrue(isinstance(ax2, matplotlib.axes._subplots.Axes))
+
+
 	def test_blandAtlman_screen(self):
 
-		noSamp = numpy.random.randint(100, high=500, size=None)
-
-		pyCompare.blandAltman(numpy.random.rand(noSamp)*100+100,
-								  numpy.random.rand(noSamp)*50+100,
+		pyCompare.blandAltman(numpy.random.rand(self.noSamp)*100+100,
+								  numpy.random.rand(self.noSamp)*50+100,
 								  confidenceIntervalMethod='approximate',
 								  savePath=None)
 
 
 	def test_blandAtlman_raises(self):
 
-		noSamp = numpy.random.randint(100, high=500, size=None)
-		values = numpy.random.rand(noSamp)
+		values = numpy.random.rand(self.noSamp)
 
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, limitOfAgreement=-2)
 		self.assertRaises(ValueError, pyCompare.blandAltman, values, values, confidenceInterval=-2)
@@ -67,8 +104,6 @@ class test_plotting(unittest.TestCase):
 
 	def test_drawBlandAtlman(self):
 		from pyCompare._plotBlandAltman import _drawBlandAltman
-
-		noSamp = numpy.random.randint(100, high=500, size=None)
 
 		with tempfile.TemporaryDirectory() as tmpdirname:
 
@@ -83,6 +118,7 @@ class test_plotting(unittest.TestCase):
 								 {'mean':[-1,1],'upperLoA':[2,2.5], 'lowerLoA':[-2.5, 2]},
 								 ('detrending method', 12.2, 243.2),
 								 'a title',
+								 None,
 								 (10, 7),
 								 72,
 								 outputPath,
@@ -104,6 +140,7 @@ class test_plotting(unittest.TestCase):
 								 {},
 								 (None, None, None),
 								 'a title',
+								 None,
 								 (10, 7),
 								 72,
 								 outputPath,
@@ -125,6 +162,7 @@ class test_plotting(unittest.TestCase):
 								 {'mean':[-1,1],'upperLoA':[2,2.5], 'lowerLoA':[-2.5, 2]},
 								 ('detrending method', 12.2, 243.2),
 								 'a title',
+								 None,
 								 (10, 7),
 								 72,
 								 outputPath,
@@ -146,6 +184,7 @@ class test_plotting(unittest.TestCase):
 								 {},
 								 (None, None, None),
 								 'a title',
+								 None,
 								 (10, 7),
 								 72,
 								 outputPath,
