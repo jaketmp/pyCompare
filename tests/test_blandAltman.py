@@ -1,5 +1,4 @@
 import numpy
-import pandas
 import sys
 import unittest
 import tempfile
