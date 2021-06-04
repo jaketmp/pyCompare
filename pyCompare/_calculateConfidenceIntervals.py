@@ -25,7 +25,7 @@ def calculateConfidenceIntervals(md, sd, n, limitOfAgreement, confidenceInterval
 
 	confidenceInterval = confidenceInterval / 100.
 
-	confidenceIntervals['mean'] = stats.norm.interval(confidenceInterval, loc=md, scale=sd/numpy.sqrt(n))
+	confidenceIntervals['mean'] = stats.t.interval(confidenceInterval, n-1, loc=md, scale=sd/numpy.sqrt(n))
 
 	if confidenceIntervalMethod.lower() == 'exact paired':
 

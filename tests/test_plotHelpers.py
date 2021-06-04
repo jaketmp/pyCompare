@@ -146,7 +146,7 @@ class test_statsHelpers(unittest.TestCase):
 			loA = 1.96
 			ci = 95
 
-			expected = {'mean': (-20.43, -12.09),
+			expected = {'mean': (-20.49, -12.03),
 						'upperLoA': (14.92, 29.43),
 						'lowerLoA': (-61.95, -47.44)}
 
@@ -167,7 +167,7 @@ class test_statsHelpers(unittest.TestCase):
 			loA = 1.96
 			ci = 95
 
-			expected = {'mean': (-20.43, -12.09),
+			expected = {'mean': (-20.49, -12.03),
 						'upperLoA': (3.35, 22.96),
 						'lowerLoA': (-55.48, -35.87)}
 
