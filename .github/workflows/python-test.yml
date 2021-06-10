@@ -39,12 +39,12 @@ jobs:
     - name: Testing with unittest
       run: |
         cd tests
-        coverage run -m unittest discover
+        coverage run -m unittest discover -v
 
   publish:
     name: Publish pyCompare 🐍 distribution 📦 to PyPI
 
-    if: github.event_name == 'push' && contains(github.ref, '/tags/v')
+    # if: github.event_name == 'push' && contains(github.ref, '/tags/v')
 
     runs-on: ubuntu-latest
 
@@ -59,6 +59,7 @@ jobs:
 
     - name: Build a binary wheel and a source tarball
       run: >
+        pip install wheel
         python setup.py bdist_wheel sdist
 
     - name: Publish distribution 📦 to PyPI
