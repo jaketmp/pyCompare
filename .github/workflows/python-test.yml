@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6, 3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -39,3 +39,31 @@ jobs:
       run: |
         cd tests
         coverage run -m unittest discover
+
+  publish:
+    name: Publish pyCompare 🐍 distribution 📦 to PyPI
+
+    on:
+      push:
+        branches:
+          - "master"
+        tags:
+          - "v*"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Build a binary wheel and a source tarball
+      run: >
+        python setup.py bdist_wheel sdist
+
+    - name: Publish distribution 📦 to PyPI
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.pypi_password }}
