@@ -24,6 +24,8 @@ jobs:
             experimental: true
 
     steps:
+      with:
+        allow_failure: ${{ matrix.experimental }}   # <<-- mapping for the action
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
@@ -44,8 +46,6 @@ jobs:
       run: |
         cd tests
         coverage run -m unittest discover
-      with:
-        allow_failure: ${{ matrix.experimental }}   # <<-- mapping for the action
 
 
   publish:
