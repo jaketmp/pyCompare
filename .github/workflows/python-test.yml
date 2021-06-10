@@ -44,7 +44,7 @@ jobs:
   publish:
     name: Publish pyCompare 🐍 distribution 📦 to PyPI
 
-    # if: github.event_name == 'push' && contains(github.ref, '/tags/v')
+    if: github.event_name == 'push' && contains(github.ref, '/tags/v')
 
     runs-on: ubuntu-latest
 
