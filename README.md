@@ -23,7 +23,7 @@ Installation with pip allows the usage of the uninstall command:
 
 ## Documentation
 
-### blandAltman(&nbsp;)
+### Usage
 
     blandAltman(data1, data2,
                 limitOfAgreement=1.96,
@@ -35,24 +35,26 @@ Installation with pip allows the usage of the uninstall command:
 
 Generate a Bland-Altman plot to compare two sets of measurements of the same value.
 
-`data1` and `data2` should be 1D numpy arrays of equal length containing the paired measurements.
+Paired measurmentes from each set should be passed in `data1` and `data2` with each containing a list of values from one of the methods.
 
-If not `None` plot confidence interval over the *x*% range with `confidenceInterval=x`
+The range of the limits of agreement is 1.96 by default, and can be customised with the `limitOfAgreement=` argument.
 
-Confidence intervals on the mean difference and limit of agreement may be calculated using:
+By default confidance intervals are plotted over the 95% range, this can be customised to the *x*% range by passing the argument `confidenceInterval=x` or removed with `confidenceInterval=None`.
+
+There are two options for plotting confidence intervals on the mean difference and limit of agreement:
+- [default] 'approximate' uses the approximate method described by Bland & Altman
 - 'exact paired' uses the exact paired method described by Carkeet
-- 'approximate' uses the approximate method described by Bland & Altman
 
-The 'exact paired' method will give more accurate confidence intervals on the limits of agreement when the number of paired measurements is low (approx < 100), at the expense of much slower plotting time.
+The 'exact paired' method will give more accurate confidence intervals on the limits of agreement when the number of paired measurements is low (approx < 100), at the expense of a much slower plotting time.
 
-The *detrend* parameter supports the following options:
-- ``None`` do not attempt to detrend data - plots raw values
+A multiplicative offset between the two measures can be modeled with the *detrend=* argument, which supports the following options:
+- [default] `None` do not attempt to detrend data - plots the raw values
 - 'Linear' attempt to model and remove a multiplicative offset between each assay by linear regression
 - 'ODR' attempt to model and remove a multiplicative offset between each assay by orthogonal distance regression
 
-'ODR' is the recommended method if you do not use ``None``.
+'ODR' is the recommended method if you do not use `None`.
 
-When `True`, the `percentage` option plots the difference between methods as a percentage, instead of in the units the methods were measured in.
+If passed as `True`, the `percentage=` argument plots the percentage difference between measures, instead of the units the methods were measured in.
 
 Plots are displayed using the current matplotlib backend by default, or may be saved with the `savePath=` argument.
 
@@ -66,6 +68,28 @@ The save format type can be chosen from those known by [matplotlib](https://matp
     blandAltman(data1, data2,
                 savePath='SavedFigure.svg',
                 figureFormat='svg)
+
+### Full list of arguments
+
+**blandAltman(data1, data2)**
+
+* **data1** (*list like*) – List of values from the first method
+* **data2** (*list like*) – List of paired values from the second method
+* **limitOfAgreement** (*float*) – Multiple of the standard deviation to plot limit of agreement bounds at (defaults to 1.96)
+* **confidenceInterval** (*None** or **float*) – If not `None`, plot the specified percentage confidence interval on the mean and limits of agreement
+* **confidenceIntervalMethod** (*str*) – Method used to calculated confidence interval on the limits of agreement
+* **detrend** (*None** or **str*) – If not `None` attempt to detrend by the method specified
+* **percentage** (*bool*) – If `True`, plot differences as percentages (instead of in the units the data sources are in)
+* **title** (*str*) – Title text for the figure
+* **ax** (*matplotlib.axes._subplots.AxesSubplot*) – Matplotlib axis handle - if not None draw into this axis rather than creating a new figure
+* **figureSize** (*(**float**, **float**)*) – Figure size as a tuple of (width, height) in inches
+* **dpi** (*int*) – Figure resolution
+* **savePath** (*str*) – If not `None`, save figure at this path
+* **figureFormat** (*str*) – When saving figure use this format
+* **meanColour** (*str*) – Colour to use for plotting the mean difference
+* **loaColour** (*str*) – Colour to use for plotting the limits of agreement
+* **pointColour** (*str*) – Colour for plotting data points
+
 
 #### References
 

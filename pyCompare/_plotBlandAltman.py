@@ -25,18 +25,18 @@ def blandAltman(data1, data2, limitOfAgreement=1.96, confidenceInterval=95, conf
 	- 'Linear' attempt to model and remove a multiplicative offset between each assay by linear regression
 	- 'ODR' attempt to model and remove a multiplicative offset between each assay by Orthogonal distance regression
 
-	:param data1: First measurement
+	:param data1: List of values from the first method
 	:type data1: list like
-	:param data1: Second measurement
-	:type data1: list like
-	:param float limitOfAgreement: Multiple of the standard deviation to plot limit of agreement bounds at (defaults to 1.96)
+	:param data2: List of paired values from the second method
+	:type data2: list like
+	:param float limitOfAgreement: Multiples of the standard deviation to plot limit of agreement bounds at (defaults to 1.96)
 	:param confidenceInterval: If not ``None``, plot the specified percentage confidence interval on the mean and limits of agreement
 	:param str confidenceIntervalMethod: Method used to calculated confidence interval on the limits of agreement
 	:type confidenceInterval: None or float
 	:param detrend: If not ``None`` attempt to detrend by the method specified
 	:type detrend: None or str
 	:param bool percentage: If ``True``, plot differences as percentages (instead of in the units the data sources are in)
-	:param str title: Title text
+	:param str title: Title text for the figure
 	:param matplotlib.axes._subplots.AxesSubplot ax: Matplotlib axis handle - if not `None` draw into this axis rather than creating a new figure
 	:param figureSize: Figure size as a tuple of (width, height) in inches
 	:type figureSize: (float, float)

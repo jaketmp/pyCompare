@@ -61,7 +61,7 @@ class test_statsHelpers(unittest.TestCase):
 
 		referenceValues = pandas.read_csv('referenceCIs.csv')
 
-		# Calculation of bounds is so expensive we random select a small number of cases from the reference table rather thatn doing them all.
+		# Calculation of bounds is so expensive we randomly select a small number of cases from the reference table rather than doing them all.
 		noSamples = 4
 
 		referenceValues = referenceValues.sample(n=noSamples)
