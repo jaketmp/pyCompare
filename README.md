@@ -1,14 +1,14 @@
-# pyCompare <img src="https://github.com/jaketmp/pyCompare/raw/master/docs/_static/pyCompare.png" width="200" style="max-width: 30%;" align="right" />
+# pyCompare <img src="https://github.com/jaketmp/pyCompare/raw/main/docs/_static/pyCompare.png" width="200" style="max-width: 30%;" align="right" />
 
-[![Build Status](https://github.com/jaketmp/pyCompare/actions/workflows/python-test.yml/badge.svg)](https://github.com/jaketmp/pyCompare/actions) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/master/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyCompare.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915) [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaketmp/pyCompare/master?filepath=pyCompare-Demo.ipynb)
+[![Build Status](https://github.com/jaketmp/pyCompare/actions/workflows/python-test.yml/badge.svg)](https://github.com/jaketmp/pyCompare/actions) [![codecov](https://codecov.io/gh/jaketmp/pyCompare/branch/main/graph/badge.svg)](https://codecov.io/gh/jaketmp/pyCompare) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyCompare.svg) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1238915.svg)](https://doi.org/10.5281/zenodo.1238915) [![PyPI](https://img.shields.io/pypi/v/pyCompare.svg)](https://pypi.org/project/pyCompare/) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jaketmp/pyCompare/main?filepath=pyCompare-Demo.ipynb)
 
 
 
 A Python module for generating [Bland-Altman](https://en.wikipedia.org/wiki/Bland–Altman_plot) plots to compare two sets of measurements.
 
-You can try out the code using [Binder](https://mybinder.org/v2/gh/jaketmp/pyCompare/master?filepath=pyCompare-Demo.ipynb).
+You can try out the code using [Binder](https://mybinder.org/v2/gh/jaketmp/pyCompare/main?filepath=pyCompare-Demo.ipynb).
 
-<img src="https://github.com/jaketmp/pyCompare/raw/master/docs/_static/bland_altman.png" style="max-width: 60%;" align="center" />
+<img src="https://github.com/jaketmp/pyCompare/raw/main/docs/_static/bland_altman.png" style="max-width: 60%;" align="center" />
 
 ## Installation
 
