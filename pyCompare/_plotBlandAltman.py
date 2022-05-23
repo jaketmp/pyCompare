@@ -173,7 +173,7 @@ def _drawBlandAltman(mean, diff, md, sd, percentage, limitOfAgreement, confidenc
 	tickLocs = rangeFrameLocator(tickLocs, (min(diff), max(diff)))
 	ax.yaxis.set_major_locator(ticker.FixedLocator(tickLocs))
 
-	plt.draw() # Force drawing to populate tick labels
+	ax.figure.canvas.draw() # Force drawing to populate tick labels
 
 	labels = rangeFrameLabler(ax.xaxis.get_ticklocs(), [item.get_text() for item in ax.get_xticklabels()], cadenceX)
 	ax.set_xticklabels(labels)
