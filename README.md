@@ -24,14 +24,14 @@ Installation with pip allows the usage of the uninstall command:
 ## Documentation
 
 ### Usage
-
+    from pyCompare import blandAltman
+    
     blandAltman(data1, data2,
                 limitOfAgreement=1.96,
                 confidenceInterval=95,
                 confidenceIntervalMethod='approximate',
                 detrend=None,
-                percentage=False,
-                **kwargs)
+                percentage=False)
 
 Generate a Bland-Altman plot to compare two sets of measurements of the same value.
 
