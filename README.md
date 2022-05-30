@@ -23,7 +23,7 @@ Installation with pip allows the usage of the uninstall command:
 
 ## Documentation
 
-### Usage
+See [the example notebook](pyCompare-Demo.ipynb) (or the interactive version on [Binder](https://mybinder.org/v2/gh/jaketmp/pyCompare/main?filepath=pyCompare-Demo.ipynb)) for detailed examples of all the options. 
 
     blandAltman(data1, data2,
                 limitOfAgreement=1.96,
